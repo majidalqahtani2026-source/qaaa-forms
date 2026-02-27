@@ -3,201 +3,320 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thulath International Discovery | QAAA</title>
+    <title>QAAA | Thulath International Discovery</title>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #0a0a0a;
-            --card-bg: #1a1a1a;
-            --text-color: #e0e0e0;
+            --bg-color: #050505;
+            --card-bg: rgba(20, 20, 20, 0.8);
+            --text-color: #f0f0f0;
             --accent-cyan: #00D4FF;
             --accent-purple: #7B2FFF;
+            --input-bg: rgba(255, 255, 255, 0.05);
+            --border-color: rgba(255, 255, 255, 0.1);
             --gradient: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
         }
 
+        * {
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'IBM Plex Sans Arabic', sans-serif;
             background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(123, 47, 255, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(0, 212, 255, 0.15) 0%, transparent 40%);
             color: var(--text-color);
             margin: 0;
             padding: 20px;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;
             min-height: 100vh;
         }
 
         .container {
-            background-color: var(--card-bg);
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
             width: 100%;
-            max-width: 600px;
-            border: 1px solid #333;
+            max-width: 650px;
+            border: 1px solid var(--border-color);
+            margin-top: 40px;
+            margin-bottom: 40px;
+        }
+
+        .logo-container {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo-text {
+            font-size: 14px;
+            letter-spacing: 4px;
+            color: var(--accent-cyan);
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 8px;
         }
 
         h1 {
             text-align: center;
-            margin-bottom: 10px;
+            margin: 0;
             background: var(--gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            font-size: 2.5em;
+            font-size: 2.2em;
+            font-weight: 600;
         }
         
         h2 {
             text-align: center;
             color: #888;
-            font-size: 1.2em;
-            margin-top: 0;
-            margin-bottom: 30px;
-            font-weight: normal;
+            font-size: 1.1em;
+            margin-top: 8px;
+            margin-bottom: 40px;
+            font-weight: 300;
         }
 
         .form-group {
-            margin-bottom: 25px;
+            margin-bottom: 35px;
+            position: relative;
         }
 
         label {
             display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-            color: var(--accent-cyan);
+            margin-bottom: 12px;
+            font-weight: 400;
+            color: #bbb;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        .input-wrapper {
+            position: relative;
         }
 
         select, input[type="text"], textarea {
             width: 100%;
-            padding: 12px;
-            background-color: #2a2a2a;
-            border: 1px solid #444;
-            border-radius: 8px;
+            padding: 16px;
+            background-color: var(--input-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
             color: #fff;
             font-size: 1em;
             box-sizing: border-box;
-            transition: border-color 0.3s;
+            appearance: none;
+            -webkit-appearance: none;
+        }
+
+        select {
+            cursor: pointer;
+            padding-left: 40px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23888888'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: left 16px center;
+            background-size: 16px;
         }
 
         select:focus, input:focus, textarea:focus {
             outline: none;
             border-color: var(--accent-cyan);
-            box-shadow: 0 0 5px rgba(0, 212, 255, 0.3);
+            background-color: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.1);
+        }
+
+        .other-input {
+            margin-top: 12px;
+            display: none;
+            animation: slideDown 0.4s ease-out forwards;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         button {
             width: 100%;
-            padding: 15px;
+            padding: 18px;
             background: var(--gradient);
             border: none;
-            border-radius: 8px;
+            border-radius: 14px;
             color: #fff;
             font-size: 1.1em;
-            font-weight: bold;
+            font-weight: 600;
             cursor: pointer;
-            transition: transform 0.2s, opacity 0.2s;
+            box-shadow: 0 10px 15px -3px rgba(123, 47, 255, 0.3);
+            margin-top: 20px;
         }
 
         button:hover {
             opacity: 0.9;
             transform: translateY(-2px);
+            box-shadow: 0 20px 25px -5px rgba(123, 47, 255, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button:disabled {
+            background: #333;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
         }
         
         .footer {
             text-align: center;
-            margin-top: 20px;
-            font-size: 0.8em;
-            color: #555;
+            margin-top: 30px;
+            font-size: 0.75em;
+            color: #444;
+            letter-spacing: 1px;
         }
 
         #status {
-            margin-top: 15px;
+            margin-top: 20px;
             text-align: center;
-            padding: 10px;
-            border-radius: 5px;
+            padding: 16px;
+            border-radius: 12px;
             display: none;
+            font-size: 0.9em;
+            font-weight: 600;
         }
-        .success { background-color: rgba(0, 212, 255, 0.2); color: var(--accent-cyan); }
-        .error { background-color: rgba(255, 69, 58, 0.2); color: #ff453a; }
+        .success { background-color: rgba(0, 212, 255, 0.15); color: var(--accent-cyan); border: 1px solid rgba(0, 212, 255, 0.2); }
+        .error { background-color: rgba(255, 69, 58, 0.15); color: #ff453a; border: 1px solid rgba(255, 69, 58, 0.2); }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-color); }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #444; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>QAAA Discovery</h1>
-    <h2>مشروع ثلث العالمية (Thulath International)</h2>
+    <div class="logo-container">
+        <div class="logo-text">Quantum Automation & AI</div>
+        <h1>تحليل المتطلبات الرقمية</h1>
+        <h2>شركة ثلاث الدولية (Thulath International)</h2>
+    </div>
 
     <form id="discoveryForm">
         
+        <!-- Question 1 -->
         <div class="form-group">
             <label>1. ما هو التحدي الأكبر الذي يواجهكم حالياً في إدارة المعارض؟</label>
-            <select name="biggest_pain_point" required>
-                <option value="" disabled selected>-- اختر إجابة --</option>
-                <option value="Time Management">ضيق الوقت وإدارة المواعيد (Time Management)</option>
-                <option value="Design Quality">جودة التصميم والهوية البصرية (Design Quality)</option>
-                <option value="Exhibitor Coordination">تنسيق العارضين والموردين (Exhibitor Coordination)</option>
-                <option value="Budget Constraints">تحديات الميزانية (Budget Constraints)</option>
-                <option value="Other">أخرى (Other)</option>
-            </select>
+            <div class="input-wrapper">
+                <select name="biggest_pain_point" onchange="toggleOther(this, 'other_1')" required>
+                    <option value="" disabled selected>-- اختر الإجابة الأكثر دقة --</option>
+                    <option value="Time Management">ضيق الوقت وإدارة المواعيد المزدحمة</option>
+                    <option value="Design Quality">جودة التصميم وصعوبة عكس الهوية البصرية</option>
+                    <option value="Exhibitor Coordination">تنسيق العارضين والموردين وتعدد الأطراف</option>
+                    <option value="Budget Constraints">تحديات الميزانية وارتفاع تكاليف التنفيذ</option>
+                    <option value="Other">خيار آخر (يرجى الكتابة بالأسفل)</option>
+                </select>
+            </div>
+            <input type="text" id="other_1" name="biggest_pain_point_other" class="other-input" placeholder="يرجى توضيح التحدي هنا...">
         </div>
 
+        <!-- Question 2 -->
         <div class="form-group">
-            <label>2. ما هو الهدف الأساسي الذي تريدون تحقيقه من خلال التحول الرقمي؟</label>
-            <select name="primary_goal" required>
-                <option value="" disabled selected>-- اختر إجابة --</option>
-                <option value="Efficiency">رفع الكفاءة التشغيلية وتقليل الجهد اليدوي</option>
-                <option value="Customer Experience">تحسين تجربة العميل والزوار</option>
-                <option value="Data Insights">الحصول على بيانات وتقارير دقيقة</option>
-                <option value="Cost Reduction">تقليل التكاليف التشغيلية</option>
-            </select>
+            <label>2. ما هو الهدف الأساسي الذي تطمحون لتحقيقه من خلال الأتمتة؟</label>
+            <div class="input-wrapper">
+                <select name="primary_goal" onchange="toggleOther(this, 'other_2')" required>
+                    <option value="" disabled selected>-- اختر الهدف الأساسي --</option>
+                    <option value="Efficiency">رفع الكفاءة التشغيلية وتقليل الجهد اليدوي المتكرر</option>
+                    <option value="Customer Experience">تحسين تجربة العميل (Exhibitor Experience)</option>
+                    <option value="Data Insights">الحصول على لوحة بيانات وتقارير فورية ودقيقة</option>
+                    <option value="Scale">التوسع في عدد المعارض دون زيادة التكاليف البشرية</option>
+                    <option value="Other">هدف آخر...</option>
+                </select>
+            </div>
+            <input type="text" id="other_2" name="primary_goal_other" class="other-input" placeholder="ما هو هدفكم الخاص؟">
         </div>
 
+        <!-- Question 3 -->
         <div class="form-group">
-            <label>3. كيف يتم التعامل مع بيانات العملاء والعارضين حالياً؟</label>
-            <select name="current_data_handling" required>
-                <option value="" disabled selected>-- اختر إجابة --</option>
-                <option value="Excel/Spreadsheets">جداول إكسل يدوية (Excel/Spreadsheets)</option>
-                <option value="Paper">أوراق وسجلات ورقية (Paper)</option>
-                <option value="Basic Software">برامج بسيطة غير مترابطة</option>
-                <option value="CRM">نظام إدارة علاقات عملاء (CRM)</option>
-            </select>
+            <label>3. كيف يتم التعامل مع بيانات العملاء والعارضين في الوقت الحالي؟</label>
+            <div class="input-wrapper">
+                <select name="current_data_handling" onchange="toggleOther(this, 'other_3')" required>
+                    <option value="" disabled selected>-- اختر الطريقة الحالية --</option>
+                    <option value="Excel/Spreadsheets">جداول إكسل/جوجل شيت يدوية</option>
+                    <option value="Paper">سجلات ورقية وملاحظات مكتوبة</option>
+                    <option value="Basic Software">أنظمة منفصلة غير مرتبطة ببعضها</option>
+                    <option value="CRM">نظام إدارة علاقات عملاء (CRM) متقدم</option>
+                    <option value="Other">طريقة أخرى...</option>
+                </select>
+            </div>
+            <input type="text" id="other_3" name="current_data_handling_other" class="other-input" placeholder="يرجى وصف الطريقة...">
         </div>
 
+        <!-- Question 4 -->
         <div class="form-group">
-            <label>4. ما هو نوع الدعم الذي تتوقعونه من فريق QAAA؟</label>
-            <select name="expected_support" required>
-                <option value="" disabled selected>-- اختر إجابة --</option>
-                <option value="Full Management">إدارة تقنية شاملة للمشروع</option>
-                <option value="Consultation">استشارات وتوجيه استراتيجي</option>
-                <option value="Tools & Systems">بناء أنظمة وأدوات مخصصة</option>
-                <option value="Training">تدريب الفريق الحالي</option>
-            </select>
+            <label>4. ما هو نوع الدعم الذي تتوقعونه من "موظفينا الرقميين" في QAAA؟</label>
+            <div class="input-wrapper">
+                <select name="expected_support" onchange="toggleOther(this, 'other_4')" required>
+                    <option value="" disabled selected>-- اختر نوع الدعم --</option>
+                    <option value="Full Management">أتمتة وإدارة تقنية شاملة للمشروع</option>
+                    <option value="Consultation">استشارات وتصميم رحلة العميل الرقمية</option>
+                    <option value="Tools & Systems">بناء أدوات ذكاء اصطناعي مخصصة فقط</option>
+                    <option value="Integration">ربط الأنظمة الحالية ببعضها البعض</option>
+                    <option value="Other">دعم مخصص...</option>
+                </select>
+            </div>
+            <input type="text" id="other_4" name="expected_support_other" class="other-input" placeholder="كيف يمكننا مساعدتكم بشكل أفضل؟">
         </div>
 
+        <!-- Question 5 -->
         <div class="form-group">
-            <label>5. ما هي الميزانية التقديرية المرصودة لهذا التطوير؟</label>
-            <select name="budget_range" required>
-                <option value="" disabled selected>-- اختر إجابة --</option>
-                <option value="Low">ميزانية محدودة (للأساسيات فقط)</option>
-                <option value="Medium">ميزانية متوسطة (حلول متوازنة)</option>
-                <option value="High">ميزانية مفتوحة (للحلول المتكاملة)</option>
-                <option value="Undecided">لم يتم تحديدها بعد</option>
-            </select>
+            <label>5. ما هي المرحلة الأنسب لبدء تجربة الأتمتة في "ثلاث"؟</label>
+            <div class="input-wrapper">
+                <select name="start_phase" onchange="toggleOther(this, 'other_5')" required>
+                    <option value="" disabled selected>-- اختر المرحلة --</option>
+                    <option value="Immediate">فوراً (نحتاج حلاً للمشكلة الحالية)</option>
+                    <option value="Upcoming Exhibition">خلال المعرض القادم (تجربة حية)</option>
+                    <option value="Planning Phase">في مرحلة التخطيط للموسم القادم</option>
+                    <option value="Other">توقيت آخر...</option>
+                </select>
+            </div>
+            <input type="text" id="other_5" name="start_phase_other" class="other-input" placeholder="متى تفضلون البدء؟">
         </div>
 
+        <!-- Notes -->
         <div class="form-group">
-            <label>6. ملاحظات إضافية أو متطلبات خاصة:</label>
-            <textarea name="additional_notes" rows="4" placeholder="اكتب أي تفاصيل أخرى هنا..."></textarea>
+            <label>6. ملاحظات إضافية أو متطلبات خاصة ترغب بمناقشتها السبت:</label>
+            <textarea name="additional_notes" rows="4" placeholder="اكتب أي تفاصيل أخرى ترغب في التركيز عليها..."></textarea>
         </div>
 
-        <button type="submit" id="submitBtn">إرسال النموذج (Submit)</button>
+        <button type="submit" id="submitBtn">إرسال المتطلبات (Submit)</button>
         <div id="status"></div>
     </form>
     
     <div class="footer">
-        Powered by QAAA Operations &copy; 2026
+        POWERED BY QAAA OPERATIONS &copy; 2026
     </div>
 </div>
 
 <script>
+    function toggleOther(select, inputId) {
+        const input = document.getElementById(inputId);
+        if (select.value === 'Other') {
+            input.style.display = 'block';
+            input.required = true;
+        } else {
+            input.style.display = 'none';
+            input.required = false;
+        }
+    }
+
     document.getElementById('discoveryForm').addEventListener('submit', async function(e) {
         e.preventDefault();
         
@@ -206,20 +325,27 @@
         const formData = new FormData(this);
         const data = Object.fromEntries(formData.entries());
 
-        // Add timestamp
+        // Process 'Other' values
+        const questions = ['biggest_pain_point', 'primary_goal', 'current_data_handling', 'expected_support', 'start_phase'];
+        questions.forEach(q => {
+            if (data[q] === 'Other' && data[q + '_other']) {
+                data[q] = data[q + '_other'];
+            }
+            delete data[q + '_other'];
+        });
+
         data.submitted_at = new Date().toISOString();
 
         btn.disabled = true;
-        btn.textContent = 'جاري الإرسال...';
+        btn.innerHTML = 'جاري المعالجة...';
         status.style.display = 'none';
 
+        // URL logic: Try secure first, fallback to standard
+        // n8n cloud on DigitalOcean often doesn't have HTTPS by default on IP
+        const webhookUrl = 'http://164.90.225.169:5678/webhook/abu-ahmed-discovery';
+
         try {
-            // Using no-cors mode since we are posting to localhost from a file/local origin usually
-            // However, for n8n webhook to receive data, we normally need standard POST.
-            // If CORS is an issue in testing, we might need a proxy or n8n setting.
-            // Assuming standard fetch for this environment.
-            
-            const response = await fetch('http://164.90.225.169:5678/webhook/abu-ahmed-discovery', {
+            const response = await fetch(webhookUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -228,22 +354,24 @@
             });
 
             if (response.ok) {
-                status.textContent = 'تم إرسال المعلومات بنجاح! شكراً لك.';
+                status.textContent = 'تم إرسال المتطلبات بنجاح. سنراكم السبت!';
                 status.className = 'success';
                 status.style.display = 'block';
+                btn.style.display = 'none';
                 this.reset();
             } else {
-                throw new Error('Network response was not ok');
+                throw new Error('Server returned error ' + response.status);
             }
         } catch (error) {
             console.error('Error:', error);
-            // Fallback message if fetch fails (common with localhost mixed content or CORS)
-            status.textContent = 'حدث خطأ في الاتصال. يرجى المحاولة لاحقاً.';
+            status.innerHTML = 'حدث خطأ في الاتصال بالسيرفر.<br><small>يرجى التأكد من تفعيل "محتوى غير آمن" في المتصفح أو المحاولة لاحقاً.</small>';
             status.className = 'error';
             status.style.display = 'block';
         } finally {
-            btn.disabled = false;
-            btn.textContent = 'إرسال النموذج (Submit)';
+            if (btn.style.display !== 'none') {
+                btn.disabled = false;
+                btn.innerHTML = 'إرسال المتطلبات (Submit)';
+            }
         }
     });
 </script>
