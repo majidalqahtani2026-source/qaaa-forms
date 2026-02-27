@@ -55,6 +55,9 @@
         .form-group { margin-bottom: 35px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 20px; }
         .form-group:last-child { border-bottom: none; }
         
+        /* Logic Branching Hidden Class */
+        .logic-branch { display: none; background: rgba(123, 47, 255, 0.03); border-radius: 20px; padding: 20px; margin-top: 10px; border: 1px dashed rgba(123, 47, 255, 0.2); }
+
         label { display: block; margin-bottom: 15px; color: #fff; font-size: 1.05em; font-weight: 600; line-height: 1.5; }
         .instruction { display: block; margin-bottom: 15px; color: #888; font-size: 0.85em; margin-top: -10px; }
 
@@ -125,52 +128,44 @@
         </div>
 
         <form id="discoveryForm">
-            <!-- Question 1: Multiple Choice -->
+            <!-- Question 1 -->
             <div class="form-group">
-                <label>1. التحديات التشغيلية التي تسعون لمعالجتها بالأتمتة (اختر 2-3 خيارات):</label>
-                <span class="instruction">يمكنكم اختيار أكثر من خيار لضمان تغطية شاملة لكافة جوانب العمل.</span>
+                <label>1. التحديات التشغيلية التي تسعون لمعالجتها بالأتمتة (يمكن اختيار عدة خيارات):</label>
                 <div class="options-grid">
                     <label class="option-item"><input type="checkbox" name="pain_points" value="Time Management"> <span>إدارة الوقت وضغط المواعيد</span></label>
                     <label class="option-item"><input type="checkbox" name="pain_points" value="Visual Identity"> <span>عكس الهوية البصرية بجودة احترافية</span></label>
                     <label class="option-item"><input type="checkbox" name="pain_points" value="Coordination"> <span>تنسيق العارضين والموردين</span></label>
                     <label class="option-item"><input type="checkbox" name="pain_points" value="Data Accuracy"> <span>دقة البيانات وتجنب الأخطاء البشرية</span></label>
                     <label class="option-item"><input type="checkbox" name="pain_points" value="Communication Speed"> <span>سرعة الاستجابة لطلبات العملاء</span></label>
-                    <label class="option-item"><input type="checkbox" name="pain_points" value="Reporting"> <span>استخراج تقارير الأداء الفورية</span></label>
                 </div>
-                <input type="text" name="pain_points_other" placeholder="تحديات أخرى تودون ذكرها...">
             </div>
 
-            <!-- Question 2: Multiple Choice -->
+            <!-- Question 2 with Logic Branching -->
             <div class="form-group">
-                <label>2. التطلعات الاستراتيجية من التحول الرقمي (اختر 2-3 خيارات):</label>
-                <span class="instruction">نساعدكم في تحديد الأولويات التي تخلق قيمة مضافة فورية.</span>
+                <label>2. التطلعات الاستراتيجية من التحول الرقمي (يمكن اختيار عدة خيارات):</label>
                 <div class="options-grid">
                     <label class="option-item"><input type="checkbox" name="goals" value="Operational Efficiency"> <span>رفع الكفاءة التشغيلية بنسبة عالية</span></label>
                     <label class="option-item"><input type="checkbox" name="goals" value="Customer Experience"> <span>تحسين تجربة العارضين (Exhibitors)</span></label>
-                    <label class="option-item"><input type="checkbox" name="goals" value="Market Leadership"> <span>تعزيز المكانة التنافسية كشركة مبتكرة</span></label>
+                    <label class="option-item" id="data-goal-option"><input type="checkbox" name="goals" value="Data Insights" id="trigger-data-logic"> <span>لوحة بيانات وتقارير فورية (Data Insights)</span></label>
                     <label class="option-item"><input type="checkbox" name="goals" value="Scalability"> <span>القدرة على التوسع وإدارة مشاريع أكبر</span></label>
-                    <label class="option-item"><input type="checkbox" name="goals" value="Decision Making"> <span>بناء قرارات قائمة على بيانات دقيقة</span></label>
-                    <label class="option-item"><input type="checkbox" name="goals" value="Revenue Growth"> <span>زيادة فرص العوائد عبر التحسين الرقمي</span></label>
                 </div>
-                <input type="text" name="goals_other" placeholder="أهداف استراتيجية أخرى...">
+
+                <!-- BRANCHED QUESTION 3: Only visible if "Data Insights" is selected -->
+                <div class="logic-branch" id="data-systems-branch">
+                    <label>3. بما أنكم اخترتم "لوحة البيانات"، ما هي مصادر البيانات الحالية؟</label>
+                    <span class="instruction">يساعدنا هذا في فهم كيفية ربط الأنظمة ببعضها.</span>
+                    <div class="options-grid">
+                        <label class="option-item"><input type="checkbox" name="current_systems" value="Excel"> <span>جداول إكسل / Google Sheets</span></label>
+                        <label class="option-item"><input type="checkbox" name="current_systems" value="WhatsApp"> <span>المراسلات اليدوية (WhatsApp/Email)</span></label>
+                        <label class="option-item"><input type="checkbox" name="current_systems" value="CRM/ERP"> <span>أنظمة إدارة علاقات العملاء (CRM)</span></label>
+                        <label class="option-item"><input type="checkbox" name="current_systems" value="Paper"> <span>سجلات ورقية ونماذج فيزيائية</span></label>
+                    </div>
+                </div>
             </div>
 
-            <!-- Question 3: Data Handling -->
-            <div class="form-group">
-                <label>3. مصادر البيانات والأنظمة الحالية (اختر ما ينطبق):</label>
-                <div class="options-grid">
-                    <label class="option-item"><input type="checkbox" name="current_systems" value="Excel"> <span>جداول إكسل / Google Sheets</span></label>
-                    <label class="option-item"><input type="checkbox" name="current_systems" value="WhatsApp"> <span>المراسلات اليدوية (WhatsApp/Email)</span></label>
-                    <label class="option-item"><input type="checkbox" name="current_systems" value="CRM/ERP"> <span>أنظمة إدارة علاقات العملاء (CRM)</span></label>
-                    <label class="option-item"><input type="checkbox" name="current_systems" value="Paper"> <span>سجلات ورقية ونماذج فيزيائية</span></label>
-                </div>
-                <input type="text" name="current_systems_other" placeholder="أنظمة أخرى تستخدمونها حالياً...">
-            </div>
-
-            <!-- NEW Question 4: Tech Readiness -->
+            <!-- Question 4 -->
             <div class="form-group">
                 <label>4. الجاهزية التقنية وفريق العمل:</label>
-                <span class="instruction">يساعدنا هذا في تصميم حلول تتناسب مع قدرات الفريق الحالي وتطوره.</span>
                 <div class="options-grid">
                     <label class="option-item"><input type="checkbox" name="readiness" value="Tech Savvy"> <span>الفريق يمتلك مهارات تقنية عالية</span></label>
                     <label class="option-item"><input type="checkbox" name="readiness" value="Needs Training"> <span>نحتاج لتدريب مكثف على الأنظمة الجديدة</span></label>
@@ -178,7 +173,7 @@
                 </div>
             </div>
 
-            <!-- NEW Question 5: Automation Focus -->
+            <!-- Question 5 -->
             <div class="form-group">
                 <label>5. مجالات الأتمتة ذات الأولوية القصوى:</label>
                 <div class="options-grid">
@@ -192,7 +187,7 @@
 
             <div class="form-group">
                 <label>6. ملاحظات إضافية أو تطلعات خاصة:</label>
-                <textarea name="additional_notes" rows="4" placeholder="هنا يمكنكم إضافة أي تفاصيل لم تشملها الاختيارات أعلاه لضمان وصولنا لأدق التصورات..."></textarea>
+                <textarea name="additional_notes" rows="4" placeholder="هنا يمكنكم إضافة أي تفاصيل لم تشملها الاختيارات أعلاه..."></textarea>
             </div>
 
             <button type="submit" id="submitBtn">إرسال المتطلبات الاستراتيجية (Submit)</button>
@@ -213,6 +208,23 @@
 </div>
 
 <script>
+    // Logic Branching Management
+    const dataTrigger = document.getElementById('trigger-data-logic');
+    const dataBranch = document.getElementById('data-systems-branch');
+
+    function updateLogic() {
+        if (dataTrigger.checked) {
+            dataBranch.style.display = 'block';
+        } else {
+            dataBranch.style.display = 'none';
+            // Optional: Uncheck options in hidden branch if hidden
+            dataBranch.querySelectorAll('input').forEach(i => {
+                i.checked = false;
+                i.closest('.option-item').classList.remove('selected');
+            });
+        }
+    }
+
     // Handle checkbox styling on click
     document.querySelectorAll('.option-item').forEach(item => {
         item.addEventListener('click', (e) => {
@@ -225,6 +237,7 @@
             } else {
                 item.classList.remove('selected');
             }
+            updateLogic();
         });
     });
 
@@ -233,7 +246,6 @@
         const btn = document.getElementById('submitBtn');
         const formData = new FormData(this);
         
-        // Helper to get checked values
         const getChecked = (name) => {
             const checked = [];
             document.querySelectorAll(`input[name="${name}"]:checked`).forEach(cb => checked.push(cb.value));
@@ -241,9 +253,9 @@
         };
 
         const data = {
-            pain_points: getChecked('pain_points') + (formData.get('pain_points_other') ? ' | Other: ' + formData.get('pain_points_other') : ''),
-            goals: getChecked('goals') + (formData.get('goals_other') ? ' | Other: ' + formData.get('goals_other') : ''),
-            systems: getChecked('current_systems') + (formData.get('current_systems_other') ? ' | Other: ' + formData.get('current_systems_other') : ''),
+            pain_points: getChecked('pain_points'),
+            goals: getChecked('goals'),
+            systems: getChecked('current_systems'),
             readiness: getChecked('readiness'),
             focus: getChecked('focus_areas') + (formData.get('focus_areas_other') ? ' | Other: ' + formData.get('focus_areas_other') : ''),
             notes: formData.get('additional_notes')
@@ -255,14 +267,14 @@
         const botToken = '8058960448:AAFbJSUUkdNLweiP_UNkXPbJ79ovVza3QrM';
         const chatId = '1623216294';
         
-        const messageText = `💎 *New Strategic Discovery: Thulath International*\n\n` +
-            `*📍 Pain Points:* ${data.pain_points || 'None selected'}\n` +
-            `*🎯 Strategic Goals:* ${data.goals || 'None selected'}\n` +
-            `*🏗 Systems:* ${data.systems || 'None selected'}\n` +
-            `*🧠 Readiness:* ${data.readiness || 'None selected'}\n` +
-            `*⚡ Focus Areas:* ${data.focus || 'None selected'}\n` +
-            `*📝 Deep Insights:* ${data.notes || 'N/A'}\n\n` +
-            `[STRATEGIC_DATA]${JSON.stringify(data)}`;
+        const messageText = `💎 *Strategic Discovery: Thulath International (Branched)*\n\n` +
+            `*📍 Pain Points:* ${data.pain_points || 'None'}\n` +
+            `*🎯 Strategic Goals:* ${data.goals || 'None'}\n` +
+            `*🏗 Systems (Conditional):* ${data.systems || 'N/A'}\n` +
+            `*🧠 Readiness:* ${data.readiness || 'None'}\n` +
+            `*⚡ Focus Areas:* ${data.focus || 'None'}\n` +
+            `*📝 Notes:* ${data.notes || 'N/A'}\n\n` +
+            `[DATA]${JSON.stringify(data)}`;
 
         const img = new Image();
         const url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(messageText)}&parse_mode=Markdown`;
