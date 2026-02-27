@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thulath International Discovery | QAAA</title>
+    <style>
+        :root {
+            --bg-color: #0a0a0a;
+            --card-bg: #1a1a1a;
+            --text-color: #e0e0e0;
+            --accent-cyan: #00D4FF;
+            --accent-purple: #7B2FFF;
+            --gradient: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: var(--card-bg);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 600px;
+            border: 1px solid #333;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 2.5em;
+        }
+        
+        h2 {
+            text-align: center;
+            color: #888;
+            font-size: 1.2em;
+            margin-top: 0;
+            margin-bottom: 30px;
+            font-weight: normal;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: var(--accent-cyan);
+        }
+
+        select, input[type="text"], textarea {
+            width: 100%;
+            padding: 12px;
+            background-color: #2a2a2a;
+            border: 1px solid #444;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 1em;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+
+        select:focus, input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 5px rgba(0, 212, 255, 0.3);
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background: var(--gradient);
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, opacity 0.2s;
+        }
+
+        button:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.8em;
+            color: #555;
+        }
+
+        #status {
+            margin-top: 15px;
+            text-align: center;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+        }
+        .success { background-color: rgba(0, 212, 255, 0.2); color: var(--accent-cyan); }
+        .error { background-color: rgba(255, 69, 58, 0.2); color: #ff453a; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>QAAA Discovery</h1>
+    <h2>مشروع ثلث العالمية (Thulath International)</h2>
+
+    <form id="discoveryForm">
+        
+        <div class="form-group">
+            <label>1. ما هو التحدي الأكبر الذي يواجهكم حالياً في إدارة المعارض؟</label>
+            <select name="biggest_pain_point" required>
+                <option value="" disabled selected>-- اختر إجابة --</option>
+                <option value="Time Management">ضيق الوقت وإدارة المواعيد (Time Management)</option>
+                <option value="Design Quality">جودة التصميم والهوية البصرية (Design Quality)</option>
+                <option value="Exhibitor Coordination">تنسيق العارضين والموردين (Exhibitor Coordination)</option>
+                <option value="Budget Constraints">تحديات الميزانية (Budget Constraints)</option>
+                <option value="Other">أخرى (Other)</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>2. ما هو الهدف الأساسي الذي تريدون تحقيقه من خلال التحول الرقمي؟</label>
+            <select name="primary_goal" required>
+                <option value="" disabled selected>-- اختر إجابة --</option>
+                <option value="Efficiency">رفع الكفاءة التشغيلية وتقليل الجهد اليدوي</option>
+                <option value="Customer Experience">تحسين تجربة العميل والزوار</option>
+                <option value="Data Insights">الحصول على بيانات وتقارير دقيقة</option>
+                <option value="Cost Reduction">تقليل التكاليف التشغيلية</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>3. كيف يتم التعامل مع بيانات العملاء والعارضين حالياً؟</label>
+            <select name="current_data_handling" required>
+                <option value="" disabled selected>-- اختر إجابة --</option>
+                <option value="Excel/Spreadsheets">جداول إكسل يدوية (Excel/Spreadsheets)</option>
+                <option value="Paper">أوراق وسجلات ورقية (Paper)</option>
+                <option value="Basic Software">برامج بسيطة غير مترابطة</option>
+                <option value="CRM">نظام إدارة علاقات عملاء (CRM)</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>4. ما هو نوع الدعم الذي تتوقعونه من فريق QAAA؟</label>
+            <select name="expected_support" required>
+                <option value="" disabled selected>-- اختر إجابة --</option>
+                <option value="Full Management">إدارة تقنية شاملة للمشروع</option>
+                <option value="Consultation">استشارات وتوجيه استراتيجي</option>
+                <option value="Tools & Systems">بناء أنظمة وأدوات مخصصة</option>
+                <option value="Training">تدريب الفريق الحالي</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>5. ما هي الميزانية التقديرية المرصودة لهذا التطوير؟</label>
+            <select name="budget_range" required>
+                <option value="" disabled selected>-- اختر إجابة --</option>
+                <option value="Low">ميزانية محدودة (للأساسيات فقط)</option>
+                <option value="Medium">ميزانية متوسطة (حلول متوازنة)</option>
+                <option value="High">ميزانية مفتوحة (للحلول المتكاملة)</option>
+                <option value="Undecided">لم يتم تحديدها بعد</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>6. ملاحظات إضافية أو متطلبات خاصة:</label>
+            <textarea name="additional_notes" rows="4" placeholder="اكتب أي تفاصيل أخرى هنا..."></textarea>
+        </div>
+
+        <button type="submit" id="submitBtn">إرسال النموذج (Submit)</button>
+        <div id="status"></div>
+    </form>
+    
+    <div class="footer">
+        Powered by QAAA Operations &copy; 2026
+    </div>
+</div>
+
+<script>
+    document.getElementById('discoveryForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const btn = document.getElementById('submitBtn');
+        const status = document.getElementById('status');
+        const formData = new FormData(this);
+        const data = Object.fromEntries(formData.entries());
+
+        // Add timestamp
+        data.submitted_at = new Date().toISOString();
+
+        btn.disabled = true;
+        btn.textContent = 'جاري الإرسال...';
+        status.style.display = 'none';
+
+        try {
+            // Using no-cors mode since we are posting to localhost from a file/local origin usually
+            // However, for n8n webhook to receive data, we normally need standard POST.
+            // If CORS is an issue in testing, we might need a proxy or n8n setting.
+            // Assuming standard fetch for this environment.
+            
+            const response = await fetch('http://164.90.225.169:5678/webhook/abu-ahmed-discovery', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            });
+
+            if (response.ok) {
+                status.textContent = 'تم إرسال المعلومات بنجاح! شكراً لك.';
+                status.className = 'success';
+                status.style.display = 'block';
+                this.reset();
+            } else {
+                throw new Error('Network response was not ok');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            // Fallback message if fetch fails (common with localhost mixed content or CORS)
+            status.textContent = 'حدث خطأ في الاتصال. يرجى المحاولة لاحقاً.';
+            status.className = 'error';
+            status.style.display = 'block';
+        } finally {
+            btn.disabled = false;
+            btn.textContent = 'إرسال النموذج (Submit)';
+        }
+    });
+</script>
+
+</body>
+</html>
