@@ -8,11 +8,11 @@
     <style>
         :root {
             --bg-color: #050505;
-            --card-bg: rgba(20, 20, 20, 0.9);
+            --card-bg: rgba(20, 20, 20, 0.95);
             --text-color: #f0f0f0;
             --accent-cyan: #00D4FF;
             --accent-purple: #7B2FFF;
-            --input-bg: rgba(255, 255, 255, 0.05);
+            --input-bg: #000;
             --border-color: rgba(255, 255, 255, 0.1);
             --gradient: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
         }
@@ -40,7 +40,7 @@
             -webkit-backdrop-filter: blur(25px);
             padding: 40px;
             border-radius: 28px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8);
             width: 100%;
             max-width: 650px;
             border: 1px solid var(--border-color);
@@ -52,11 +52,11 @@
         h2 { color: #888; font-size: 1.1em; margin-top: 5px; font-weight: 300; }
 
         .form-group { margin-bottom: 30px; }
-        label { display: block; margin-bottom: 12px; color: #bbb; font-size: 0.95em; }
+        label { display: block; margin-bottom: 12px; color: #bbb; font-size: 0.95em; line-height: 1.5; }
 
         select, input[type="text"], textarea {
             width: 100%; padding: 16px; background: var(--input-bg); border: 1px solid var(--border-color);
-            border-radius: 14px; color: #fff; font-size: 1em; appearance: none;
+            border-radius: 14px; color: #fff; font-size: 1em; appearance: none; outline: none;
         }
 
         select {
@@ -65,15 +65,20 @@
             background-repeat: no-repeat; background-position: left 16px center; background-size: 16px;
         }
 
-        select:focus, input:focus, textarea:focus { outline: none; border-color: var(--accent-cyan); background: rgba(255,255,255,0.08); }
+        select:focus, input:focus, textarea:focus { border-color: var(--accent-cyan); }
 
-        .other-input { margin-top: 10px; display: none; background: #000 !important; border-color: var(--accent-purple) !important; }
+        .other-input { margin-top: 12px; display: none; border-color: var(--accent-purple); }
 
         button {
             width: 100%; padding: 18px; background: var(--gradient); border: none; border-radius: 16px;
             color: #fff; font-size: 1.1em; font-weight: 600; cursor: pointer; margin-top: 10px;
         }
-        button:hover { transform: translateY(-2px); opacity: 0.9; }
+
+        #success-screen { display: none; text-align: center; padding: 40px 20px; animation: fadeIn 0.5s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .success-icon { font-size: 60px; color: var(--accent-cyan); margin-bottom: 20px; }
+        .success-title { font-size: 1.8em; color: #fff; margin-bottom: 20px; }
+        .success-text { color: #aaa; line-height: 1.8; font-size: 1.1em; }
 
         .footer { text-align: center; margin-top: 30px; font-size: 0.7em; color: #444; letter-spacing: 2px; }
     </style>
@@ -81,81 +86,92 @@
 <body>
 
 <div class="container">
-    <div class="logo-container">
-        <div class="logo-text">QAAA OPERATIONS</div>
-        <h1>تحليل المتطلبات الرقمية</h1>
-        <h2>شركة ثلاث الدولية (Thulath International)</h2>
+    <div id="form-content">
+        <div class="logo-container">
+            <div class="logo-text">QAAA OPERATIONS</div>
+            <h1>تحليل المتطلبات الرقمية</h1>
+            <h2>شركة ثلاث الدولية (Thulath International)</h2>
+        </div>
+
+        <form id="discoveryForm">
+            <div class="form-group">
+                <label>1. التحدي التشغيلي الأكبر حالياً:</label>
+                <select name="biggest_pain_point" onchange="toggleOther(this, 'other_1')" required>
+                    <option value="" disabled selected>-- اختر التحدي --</option>
+                    <option value="Time Management">إدارة الوقت والمواعيد المزدحمة</option>
+                    <option value="Design Quality">جودة التصميم وعكس الهوية البصرية</option>
+                    <option value="Exhibitor Coordination">تنسيق العارضين والموردين</option>
+                    <option value="Other">خيار آخر...</option>
+                </select>
+                <input type="text" id="other_1" name="biggest_pain_point_other" class="other-input" placeholder="يرجى الكتابة هنا...">
+            </div>
+
+            <div class="form-group">
+                <label>2. الهدف الأساسي من الأتمتة:</label>
+                <select name="primary_goal" onchange="toggleOther(this, 'other_2')" required>
+                    <option value="" disabled selected>-- اختر الهدف --</option>
+                    <option value="Efficiency">رفع الكفاءة التشغيلية وتقليل الجهد</option>
+                    <option value="Customer Experience">تحسين تجربة العميل (Exhibitor)</option>
+                    <option value="Data Insights">لوحة بيانات وتقارير فورية</option>
+                    <option value="Other">هدف آخر...</option>
+                </select>
+                <input type="text" id="other_2" name="primary_goal_other" class="other-input" placeholder="ما هو هدفكم الخاص؟">
+            </div>
+
+            <div class="form-group">
+                <label>3. النظام الحالي لإدارة البيانات:</label>
+                <select name="current_data_handling" onchange="toggleOther(this, 'other_3')" required>
+                    <option value="" disabled selected>-- اختر النظام --</option>
+                    <option value="Excel/Spreadsheets">جداول إكسل/جوجل شيت</option>
+                    <option value="Paper">سجلات ورقية وملاحظات</option>
+                    <option value="Basic Software">أنظمة منفصلة غير مترابطة</option>
+                    <option value="Other">طريقة أخرى...</option>
+                </select>
+                <input type="text" id="other_3" name="current_data_handling_other" class="other-input" placeholder="يرجى الوصف...">
+            </div>
+
+            <div class="form-group">
+                <label>4. توقعاتكم من فريق QAAA الرقمي:</label>
+                <select name="expected_support" onchange="toggleOther(this, 'other_4')" required>
+                    <option value="" disabled selected>-- اختر نوع الدعم --</option>
+                    <option value="Full Management">إدارة تقنية شاملة للمشروع</option>
+                    <option value="Consultation">استشارات وتصميم رحلة العميل</option>
+                    <option value="Tools & Systems">بناء أدوات ذكاء اصطناعي مخصصة</option>
+                    <option value="Other">دعم مخصص...</option>
+                </select>
+                <input type="text" id="other_4" name="expected_support_other" class="other-input" placeholder="كيف نساعدكم؟">
+            </div>
+
+            <div class="form-group">
+                <label>5. موعد البدء المفضل:</label>
+                <select name="start_phase" onchange="toggleOther(this, 'other_5')" required>
+                    <option value="" disabled selected>-- اختر الموعد --</option>
+                    <option value="Immediate">فوراً (حل المشاكل الحالية)</option>
+                    <option value="Upcoming Exhibition">خلال المعرض القادم</option>
+                    <option value="Planning Phase">مرحلة التخطيط للموسم</option>
+                    <option value="Other">توقيت آخر...</option>
+                </select>
+                <input type="text" id="other_5" name="start_phase_other" class="other-input" placeholder="متى نبدأ؟">
+            </div>
+
+            <div class="form-group">
+                <label>6. ملاحظات إضافية أو متطلبات خاصة:</label>
+                <textarea name="additional_notes" rows="3" placeholder="اكتب تفاصيل إضافية هنا..."></textarea>
+            </div>
+
+            <button type="submit" id="submitBtn">إرسال المتطلبات (Submit)</button>
+        </form>
     </div>
 
-    <!-- Direct POST to bypass CORS -->
-    <form id="discoveryForm" action="http://164.90.225.169:5678/webhook/abu-ahmed-discovery" method="POST">
-        <div class="form-group">
-            <label>1. التحدي التشغيلي الأكبر حالياً:</label>
-            <select name="biggest_pain_point" onchange="toggleOther(this, 'other_1')" required>
-                <option value="" disabled selected>-- اختر التحدي --</option>
-                <option value="Time Management">إدارة الوقت والمواعيد المزدحمة</option>
-                <option value="Design Quality">جودة التصميم وعكس الهوية البصرية</option>
-                <option value="Exhibitor Coordination">تنسيق العارضين والموردين</option>
-                <option value="Other">خيار آخر...</option>
-            </select>
-            <input type="text" id="other_1" name="biggest_pain_point_other" class="other-input" placeholder="يرجى الكتابة هنا...">
+    <div id="success-screen">
+        <div class="success-icon">✓</div>
+        <div class="success-title">تم استلام طلبكم بنجاح</div>
+        <div class="success-text">
+            شكراً لكم شركة <strong>ثلاث الدولية</strong> على ثقتكم. <br><br>
+            نحن في <strong>QAAA</strong> نتطلع بشغف لبداية تعاون استراتيجي ومثمر، يحول طموحاتكم إلى واقع رقمي ملموس باستخدام أحدث حلول الأتمتة والذكاء الاصطناعي.<br><br>
+            سيقوم فريقنا بدراسة متطلباتكم والتواصل معكم قريباً بالنتائج والتوصيات.
         </div>
-
-        <div class="form-group">
-            <label>2. الهدف الأساسي من الأتمتة:</label>
-            <select name="primary_goal" onchange="toggleOther(this, 'other_2')" required>
-                <option value="" disabled selected>-- اختر الهدف --</option>
-                <option value="Efficiency">رفع الكفاءة التشغيلية وتقليل الجهد</option>
-                <option value="Customer Experience">تحسين تجربة العميل (Exhibitor)</option>
-                <option value="Data Insights">لوحة بيانات وتقارير فورية</option>
-                <option value="Other">هدف آخر...</option>
-            </select>
-            <input type="text" id="other_2" name="primary_goal_other" class="other-input" placeholder="ما هو هدفكم الخاص؟">
-        </div>
-
-        <div class="form-group">
-            <label>3. النظام الحالي لإدارة البيانات:</label>
-            <select name="current_data_handling" onchange="toggleOther(this, 'other_3')" required>
-                <option value="" disabled selected>-- اختر النظام --</option>
-                <option value="Excel/Spreadsheets">جداول إكسل/جوجل شيت</option>
-                <option value="Paper">سجلات ورقية وملاحظات</option>
-                <option value="Basic Software">أنظمة منفصلة غير مترابطة</option>
-                <option value="Other">طريقة أخرى...</option>
-            </select>
-            <input type="text" id="other_3" name="current_data_handling_other" class="other-input" placeholder="يرجى الوصف...">
-        </div>
-
-        <div class="form-group">
-            <label>4. توقعاتكم من فريق QAAA الرقمي:</label>
-            <select name="expected_support" onchange="toggleOther(this, 'other_4')" required>
-                <option value="" disabled selected>-- اختر نوع الدعم --</option>
-                <option value="Full Management">إدارة تقنية شاملة للمشروع</option>
-                <option value="Consultation">استشارات وتصميم رحلة العميل</option>
-                <option value="Tools & Systems">بناء أدوات ذكاء اصطناعي مخصصة</option>
-                <option value="Other">دعم مخصص...</option>
-            </select>
-            <input type="text" id="other_4" name="expected_support_other" class="other-input" placeholder="كيف نساعدكم؟">
-        </div>
-
-        <div class="form-group">
-            <label>5. موعد البدء المفضل:</label>
-            <select name="start_phase" onchange="toggleOther(this, 'other_5')" required>
-                <option value="" disabled selected>-- اختر الموعد --</option>
-                <option value="Immediate">فوراً (حل المشاكل الحالية)</option>
-                <option value="Upcoming Exhibition">خلال المعرض القادم</option>
-                <option value="Planning Phase">مرحلة التخطيط للموسم</option>
-                <option value="Other">توقيت آخر...</option>
-            </select>
-            <input type="text" id="other_5" name="start_phase_other" class="other-input" placeholder="متى نبدأ؟">
-        </div>
-
-        <div class="form-group">
-            <label>6. ملاحظات إضافية أو متطلبات خاصة:</label>
-            <textarea name="additional_notes" rows="3" placeholder="اكتب تفاصيل إضافية هنا..."></textarea>
-        </div>
-
-        <button type="submit" id="submitBtn">إرسال المتطلبات (Submit)</button>
-    </form>
+    </div>
     
     <div class="footer">QAAA OPERATIONS &copy; 2026</div>
 </div>
@@ -166,6 +182,52 @@
         input.style.display = (select.value === 'Other') ? 'block' : 'none';
         if (select.value === 'Other') input.focus();
     }
+
+    document.getElementById('discoveryForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const btn = document.getElementById('submitBtn');
+        const formData = new FormData(this);
+        const rawData = Object.fromEntries(formData.entries());
+
+        const data = {};
+        const questions = ['biggest_pain_point', 'primary_goal', 'current_data_handling', 'expected_support', 'start_phase'];
+        questions.forEach(q => {
+            data[q] = (rawData[q] === 'Other') ? rawData[q + '_other'] : rawData[q];
+        });
+        data.additional_notes = rawData.additional_notes;
+
+        btn.disabled = true;
+        btn.innerHTML = 'جاري الإرسال...';
+
+        const botToken = '8058960448:AAFbJSUUkdNLweiP_UNkXPbJ79ovVza3QrM';
+        const chatId = '1623216294';
+        
+        const messageText = `🚀 *New Discovery: Thulath International*\n\n` +
+            `*Pain Point:* ${data.biggest_pain_point}\n` +
+            `*Goal:* ${data.primary_goal}\n` +
+            `*Current:* ${data.current_data_handling}\n` +
+            `*Support:* ${data.expected_support}\n` +
+            `*Start:* ${data.start_phase}\n` +
+            `*Notes:* ${data.additional_notes || 'N/A'}\n\n` +
+            `[DATA]${JSON.stringify(data)}`;
+
+        // Use Image beacon - The most robust way to send data cross-origin without CORS issues
+        const img = new Image();
+        const url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(messageText)}&parse_mode=Markdown`;
+        
+        img.onload = function() {
+            document.getElementById('form-content').style.display = 'none';
+            document.getElementById('success-screen').style.display = 'block';
+        };
+        
+        img.onerror = function() {
+            // Even if it "fails" (because Telegram doesn't return an image), the request usually hits the server
+            document.getElementById('form-content').style.display = 'none';
+            document.getElementById('success-screen').style.display = 'block';
+        };
+
+        img.src = url;
+    });
 </script>
 
 </body>
