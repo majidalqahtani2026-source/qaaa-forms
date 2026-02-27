@@ -168,7 +168,7 @@
             </div>
 
             <div class="form-group">
-                <label>6. ملاحظات إضافية ترغب بمناقشتها السبت:</label>
+                <label>6. ملاحظات إضافية أو متطلبات خاصة:</label>
                 <textarea name="additional_notes" rows="3" placeholder="اكتب تفاصيل إضافية هنا..."></textarea>
             </div>
 
@@ -183,7 +183,7 @@
         <div class="success-text">
             شكراً لكم شركة <strong>ثلاث الدولية</strong> على ثقتكم. <br><br>
             نحن في <strong>QAAA</strong> نتطلع بشغف لبداية تعاون استراتيجي ومثمر، يحول طموحاتكم إلى واقع رقمي ملموس باستخدام أحدث حلول الأتمتة والذكاء الاصطناعي.<br><br>
-            نراكم في اجتماع السبت بكل حماس.
+            سيقوم فريقنا بدراسة متطلباتكم والتواصل معكم قريباً بالنتائج والتوصيات.
         </div>
     </div>
     
@@ -215,34 +215,22 @@
         btn.innerHTML = 'جاري الإرسال...';
         errorBox.style.display = 'none';
 
-        const botToken = '8058960448:AAFbJSUUkdNLweiP_UNkXPbJ79ovVza3QrM';
-        const chatId = '1623216294';
-        
-        const messageText = `<b>🚀 New Discovery: Thulath International</b>\n\n` +
-            `<b>• Pain Point:</b> ${data.biggest_pain_point}\n` +
-            `<b>• Goal:</b> ${data.primary_goal}\n` +
-            `<b>• Current:</b> ${data.current_data_handling}\n` +
-            `<b>• Support:</b> ${data.expected_support}\n` +
-            `<b>• Start:</b> ${data.start_phase}\n` +
-            `<b>• Notes:</b> ${data.additional_notes || 'N/A'}\n\n` +
-            `<code>[DATA]${JSON.stringify(data)}</code>`;
+        const webhookUrl = 'http://164.90.225.169:5678/webhook/abu-ahmed-discovery';
 
         try {
-            const params = new URLSearchParams();
-            params.append('chat_id', chatId);
-            params.append('text', messageText);
-            params.append('parse_mode', 'HTML');
-
-            const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+            const response = await fetch(webhookUrl, {
                 method: 'POST',
-                body: params
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
             });
 
             if (response.ok) {
                 document.getElementById('form-content').style.display = 'none';
                 document.getElementById('success-screen').style.display = 'block';
             } else {
-                throw new Error('Telegram Error');
+                throw new Error('Webhook Error');
             }
         } catch (error) {
             btn.disabled = false;
