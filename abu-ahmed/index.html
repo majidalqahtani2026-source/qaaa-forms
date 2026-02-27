@@ -44,8 +44,6 @@
             width: 100%;
             max-width: 650px;
             border: 1px solid var(--border-color);
-            position: relative;
-            overflow: hidden;
         }
 
         .logo-container { text-align: center; margin-bottom: 30px; }
@@ -77,115 +75,87 @@
         }
         button:hover { transform: translateY(-2px); opacity: 0.9; }
 
-        #success-screen {
-            display: none; text-align: center; padding: 40px 20px;
-            animation: fadeIn 0.5s ease;
-        }
-
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        .success-icon { font-size: 60px; color: var(--accent-cyan); margin-bottom: 20px; }
-        .success-title { font-size: 1.8em; color: #fff; margin-bottom: 20px; line-height: 1.4; }
-        .success-text { color: #aaa; line-height: 1.8; font-size: 1.1em; }
-
-        #status-error {
-            margin-top: 20px; text-align: center; padding: 16px; border-radius: 12px;
-            display: none; background: rgba(255, 69, 58, 0.1); color: #ff453a; border: 1px solid rgba(255, 69, 58, 0.2);
-        }
-
         .footer { text-align: center; margin-top: 30px; font-size: 0.7em; color: #444; letter-spacing: 2px; }
     </style>
 </head>
 <body>
 
-<div class="container" id="main-container">
-    <div id="form-content">
-        <div class="logo-container">
-            <div class="logo-text">QAAA OPERATIONS</div>
-            <h1>تحليل المتطلبات الرقمية</h1>
-            <h2>شركة ثلاث الدولية (Thulath International)</h2>
-        </div>
-
-        <form id="discoveryForm">
-            <div class="form-group">
-                <label>1. التحدي التشغيلي الأكبر حالياً:</label>
-                <select name="biggest_pain_point" onchange="toggleOther(this, 'other_1')" required>
-                    <option value="" disabled selected>-- اختر التحدي --</option>
-                    <option value="Time Management">إدارة الوقت والمواعيد المزدحمة</option>
-                    <option value="Design Quality">جودة التصميم وعكس الهوية البصرية</option>
-                    <option value="Exhibitor Coordination">تنسيق العارضين والموردين</option>
-                    <option value="Other">خيار آخر...</option>
-                </select>
-                <input type="text" id="other_1" name="biggest_pain_point_other" class="other-input" placeholder="يرجى الكتابة هنا...">
-            </div>
-
-            <div class="form-group">
-                <label>2. الهدف الأساسي من الأتمتة:</label>
-                <select name="primary_goal" onchange="toggleOther(this, 'other_2')" required>
-                    <option value="" disabled selected>-- اختر الهدف --</option>
-                    <option value="Efficiency">رفع الكفاءة التشغيلية وتقليل الجهد</option>
-                    <option value="Customer Experience">تحسين تجربة العميل (Exhibitor)</option>
-                    <option value="Data Insights">لوحة بيانات وتقارير فورية</option>
-                    <option value="Other">هدف آخر...</option>
-                </select>
-                <input type="text" id="other_2" name="primary_goal_other" class="other-input" placeholder="ما هو هدفكم الخاص؟">
-            </div>
-
-            <div class="form-group">
-                <label>3. النظام الحالي لإدارة البيانات:</label>
-                <select name="current_data_handling" onchange="toggleOther(this, 'other_3')" required>
-                    <option value="" disabled selected>-- اختر النظام --</option>
-                    <option value="Excel/Spreadsheets">جداول إكسل/جوجل شيت</option>
-                    <option value="Paper">سجلات ورقية وملاحظات</option>
-                    <option value="Basic Software">أنظمة منفصلة غير مترابطة</option>
-                    <option value="Other">طريقة أخرى...</option>
-                </select>
-                <input type="text" id="other_3" name="current_data_handling_other" class="other-input" placeholder="يرجى الوصف...">
-            </div>
-
-            <div class="form-group">
-                <label>4. توقعاتكم من فريق QAAA الرقمي:</label>
-                <select name="expected_support" onchange="toggleOther(this, 'other_4')" required>
-                    <option value="" disabled selected>-- اختر نوع الدعم --</option>
-                    <option value="Full Management">إدارة تقنية شاملة للمشروع</option>
-                    <option value="Consultation">استشارات وتصميم رحلة العميل</option>
-                    <option value="Tools & Systems">بناء أدوات ذكاء اصطناعي مخصصة</option>
-                    <option value="Other">دعم مخصص...</option>
-                </select>
-                <input type="text" id="other_4" name="expected_support_other" class="other-input" placeholder="كيف نساعدكم؟">
-            </div>
-
-            <div class="form-group">
-                <label>5. موعد البدء المفضل:</label>
-                <select name="start_phase" onchange="toggleOther(this, 'other_5')" required>
-                    <option value="" disabled selected>-- اختر الموعد --</option>
-                    <option value="Immediate">فوراً (حل المشاكل الحالية)</option>
-                    <option value="Upcoming Exhibition">خلال المعرض القادم</option>
-                    <option value="Planning Phase">مرحلة التخطيط للموسم</option>
-                    <option value="Other">توقيت آخر...</option>
-                </select>
-                <input type="text" id="other_5" name="start_phase_other" class="other-input" placeholder="متى نبدأ؟">
-            </div>
-
-            <div class="form-group">
-                <label>6. ملاحظات إضافية أو متطلبات خاصة:</label>
-                <textarea name="additional_notes" rows="3" placeholder="اكتب تفاصيل إضافية هنا..."></textarea>
-            </div>
-
-            <button type="submit" id="submitBtn">إرسال المتطلبات (Submit)</button>
-            <div id="status-error"></div>
-        </form>
+<div class="container">
+    <div class="logo-container">
+        <div class="logo-text">QAAA OPERATIONS</div>
+        <h1>تحليل المتطلبات الرقمية</h1>
+        <h2>شركة ثلاث الدولية (Thulath International)</h2>
     </div>
 
-    <div id="success-screen">
-        <div class="success-icon">✓</div>
-        <div class="success-title">تم استلام طلبكم بنجاح</div>
-        <div class="success-text">
-            شكراً لكم شركة <strong>ثلاث الدولية</strong> على ثقتكم. <br><br>
-            نحن في <strong>QAAA</strong> نتطلع بشغف لبداية تعاون استراتيجي ومثمر، يحول طموحاتكم إلى واقع رقمي ملموس باستخدام أحدث حلول الأتمتة والذكاء الاصطناعي.<br><br>
-            سيقوم فريقنا بدراسة متطلباتكم والتواصل معكم قريباً بالنتائج والتوصيات.
+    <!-- Direct POST to bypass CORS -->
+    <form id="discoveryForm" action="http://164.90.225.169:5678/webhook/abu-ahmed-discovery" method="POST">
+        <div class="form-group">
+            <label>1. التحدي التشغيلي الأكبر حالياً:</label>
+            <select name="biggest_pain_point" onchange="toggleOther(this, 'other_1')" required>
+                <option value="" disabled selected>-- اختر التحدي --</option>
+                <option value="Time Management">إدارة الوقت والمواعيد المزدحمة</option>
+                <option value="Design Quality">جودة التصميم وعكس الهوية البصرية</option>
+                <option value="Exhibitor Coordination">تنسيق العارضين والموردين</option>
+                <option value="Other">خيار آخر...</option>
+            </select>
+            <input type="text" id="other_1" name="biggest_pain_point_other" class="other-input" placeholder="يرجى الكتابة هنا...">
         </div>
-    </div>
+
+        <div class="form-group">
+            <label>2. الهدف الأساسي من الأتمتة:</label>
+            <select name="primary_goal" onchange="toggleOther(this, 'other_2')" required>
+                <option value="" disabled selected>-- اختر الهدف --</option>
+                <option value="Efficiency">رفع الكفاءة التشغيلية وتقليل الجهد</option>
+                <option value="Customer Experience">تحسين تجربة العميل (Exhibitor)</option>
+                <option value="Data Insights">لوحة بيانات وتقارير فورية</option>
+                <option value="Other">هدف آخر...</option>
+            </select>
+            <input type="text" id="other_2" name="primary_goal_other" class="other-input" placeholder="ما هو هدفكم الخاص؟">
+        </div>
+
+        <div class="form-group">
+            <label>3. النظام الحالي لإدارة البيانات:</label>
+            <select name="current_data_handling" onchange="toggleOther(this, 'other_3')" required>
+                <option value="" disabled selected>-- اختر النظام --</option>
+                <option value="Excel/Spreadsheets">جداول إكسل/جوجل شيت</option>
+                <option value="Paper">سجلات ورقية وملاحظات</option>
+                <option value="Basic Software">أنظمة منفصلة غير مترابطة</option>
+                <option value="Other">طريقة أخرى...</option>
+            </select>
+            <input type="text" id="other_3" name="current_data_handling_other" class="other-input" placeholder="يرجى الوصف...">
+        </div>
+
+        <div class="form-group">
+            <label>4. توقعاتكم من فريق QAAA الرقمي:</label>
+            <select name="expected_support" onchange="toggleOther(this, 'other_4')" required>
+                <option value="" disabled selected>-- اختر نوع الدعم --</option>
+                <option value="Full Management">إدارة تقنية شاملة للمشروع</option>
+                <option value="Consultation">استشارات وتصميم رحلة العميل</option>
+                <option value="Tools & Systems">بناء أدوات ذكاء اصطناعي مخصصة</option>
+                <option value="Other">دعم مخصص...</option>
+            </select>
+            <input type="text" id="other_4" name="expected_support_other" class="other-input" placeholder="كيف نساعدكم؟">
+        </div>
+
+        <div class="form-group">
+            <label>5. موعد البدء المفضل:</label>
+            <select name="start_phase" onchange="toggleOther(this, 'other_5')" required>
+                <option value="" disabled selected>-- اختر الموعد --</option>
+                <option value="Immediate">فوراً (حل المشاكل الحالية)</option>
+                <option value="Upcoming Exhibition">خلال المعرض القادم</option>
+                <option value="Planning Phase">مرحلة التخطيط للموسم</option>
+                <option value="Other">توقيت آخر...</option>
+            </select>
+            <input type="text" id="other_5" name="start_phase_other" class="other-input" placeholder="متى نبدأ؟">
+        </div>
+
+        <div class="form-group">
+            <label>6. ملاحظات إضافية أو متطلبات خاصة:</label>
+            <textarea name="additional_notes" rows="3" placeholder="اكتب تفاصيل إضافية هنا..."></textarea>
+        </div>
+
+        <button type="submit" id="submitBtn">إرسال المتطلبات (Submit)</button>
+    </form>
     
     <div class="footer">QAAA OPERATIONS &copy; 2026</div>
 </div>
@@ -196,49 +166,6 @@
         input.style.display = (select.value === 'Other') ? 'block' : 'none';
         if (select.value === 'Other') input.focus();
     }
-
-    document.getElementById('discoveryForm').addEventListener('submit', async function(e) {
-        e.preventDefault();
-        const btn = document.getElementById('submitBtn');
-        const errorBox = document.getElementById('status-error');
-        const formData = new FormData(this);
-        const rawData = Object.fromEntries(formData.entries());
-
-        const data = {};
-        const questions = ['biggest_pain_point', 'primary_goal', 'current_data_handling', 'expected_support', 'start_phase'];
-        questions.forEach(q => {
-            data[q] = (rawData[q] === 'Other') ? rawData[q + '_other'] : rawData[q];
-        });
-        data.additional_notes = rawData.additional_notes;
-
-        btn.disabled = true;
-        btn.innerHTML = 'جاري الإرسال...';
-        errorBox.style.display = 'none';
-
-        const webhookUrl = 'http://164.90.225.169:5678/webhook/abu-ahmed-discovery';
-
-        try {
-            const response = await fetch(webhookUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data)
-            });
-
-            if (response.ok) {
-                document.getElementById('form-content').style.display = 'none';
-                document.getElementById('success-screen').style.display = 'block';
-            } else {
-                throw new Error('Webhook Error');
-            }
-        } catch (error) {
-            btn.disabled = false;
-            btn.innerHTML = 'إرسال المتطلبات (Submit)';
-            errorBox.style.display = 'block';
-            errorBox.innerHTML = 'حدث خطأ في الاتصال. يرجى المحاولة مرة أخرى أو التواصل معنا مباشرة.';
-        }
-    });
 </script>
 
 </body>
