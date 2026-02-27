@@ -149,10 +149,9 @@
                     <label class="option-item"><input type="checkbox" name="goals" value="Scalability"> <span>القدرة على التوسع وإدارة مشاريع أكبر</span></label>
                 </div>
 
-                <!-- BRANCHED QUESTION 3: Only visible if "Data Insights" is selected -->
+                <!-- BRANCHED QUESTION 3 -->
                 <div class="logic-branch" id="data-systems-branch">
                     <label>3. بما أنكم اخترتم "لوحة البيانات"، ما هي مصادر البيانات الحالية؟</label>
-                    <span class="instruction">يساعدنا هذا في فهم كيفية ربط الأنظمة ببعضها.</span>
                     <div class="options-grid">
                         <label class="option-item"><input type="checkbox" name="current_systems" value="Excel"> <span>جداول إكسل / Google Sheets</span></label>
                         <label class="option-item"><input type="checkbox" name="current_systems" value="WhatsApp"> <span>المراسلات اليدوية (WhatsApp/Email)</span></label>
@@ -207,7 +206,7 @@
 </div>
 
 <script>
-    // Logic Branching Management
+    // Logic Branching
     const dataTrigger = document.getElementById('trigger-data-logic');
     const dataBranch = document.getElementById('data-systems-branch');
 
@@ -223,22 +222,18 @@
         }
     }
 
-    // Handle checkbox styling on click
+    // Toggle Selections
     document.querySelectorAll('.option-item').forEach(item => {
         item.addEventListener('click', (e) => {
             const checkbox = item.querySelector('input');
-            if (e.target !== checkbox) {
-                checkbox.checked = !checkbox.checked;
-            }
-            if (checkbox.checked) {
-                item.classList.add('selected');
-            } else {
-                item.classList.remove('selected');
-            }
+            if (e.target !== checkbox) checkbox.checked = !checkbox.checked;
+            if (checkbox.checked) item.classList.add('selected');
+            else item.classList.remove('selected');
             updateLogic();
         });
     });
 
+    // Submission Logic
     document.getElementById('discoveryForm').addEventListener('submit', function(e) {
         e.preventDefault();
         const btn = document.getElementById('submitBtn');
@@ -260,43 +255,41 @@
         };
 
         btn.disabled = true;
-        btn.innerHTML = 'جاري الإرسال...';
+        btn.innerHTML = 'جاري الإرسال (Atomic Send)...';
+
+        // 🛠 Atomic Solution from Lesson 009: Use GET via Image Beacon (Proxy Bypass)
+        // No Markdown parsing to avoid Telegram "Bad Request" errors
+        const messageText = `🚀 New Strategic Discovery: Thulath International\n\n` +
+            `📍 Pain Points: ${data.pain_points || 'None'}\n` +
+            `🎯 Strategic Goals: ${data.goals || 'None'}\n` +
+            `🏗 Systems: ${data.systems || 'N/A'}\n` +
+            `🧠 Readiness: ${data.readiness || 'None'}\n` +
+            `⚡ Focus Areas: ${data.focus || 'None'}\n` +
+            `📝 Notes: ${data.notes || 'N/A'}\n\n` +
+            `[RAW] ${JSON.stringify(data)}`;
 
         const botToken = '8058960448:AAFbJSUUkdNLweiP_UNkXPbJ79ovVza3QrM';
         const chatId = '1623216294';
         
-        const messageText = `🚀 *New Discovery Submission: Thulath International*\n\n` +
-            `*📍 Pain Points:* ${data.pain_points || 'None'}\n` +
-            `*🎯 Strategic Goals:* ${data.goals || 'None'}\n` +
-            `*🏗 Systems:* ${data.systems || 'N/A'}\n` +
-            `*🧠 Readiness:* ${data.readiness || 'None'}\n` +
-            `*⚡ Focus Areas:* ${data.focus || 'None'}\n` +
-            `*📝 Notes:* ${data.notes || 'N/A'}\n\n` +
-            `[RAW_DATA]${JSON.stringify(data)}`;
+        // Final URL construction (No parse_mode to be safe)
+        const url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(messageText)}`;
 
-        // Send using FETCH instead of Image beacon for better reliability if the browser allows it
-        fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                chat_id: chatId,
-                text: messageText,
-                parse_mode: 'Markdown'
-            })
-        })
-        .then(response => {
+        // Method 1: The "Masterstroke" Image Beacon (GET)
+        const img = new Image();
+        img.onload = img.onerror = function() {
+            // We transition regardless of success because Telegram doesn't return an image
             document.getElementById('form-content').style.display = 'none';
             document.getElementById('success-screen').style.display = 'block';
             window.scrollTo(0,0);
-        })
-        .catch(error => {
-            // Fallback to Image beacon if fetch fails (e.g. CORS)
-            const img = new Image();
-            img.src = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(messageText)}&parse_mode=Markdown`;
-            document.getElementById('form-content').style.display = 'none';
-            document.getElementById('success-screen').style.display = 'block';
-            window.scrollTo(0,0);
-        });
+        };
+        img.src = url;
+
+        // Method 2: Stealth Fetch (no-cors) as a backup to ensure delivery
+        try {
+            fetch(url, { mode: 'no-cors', cache: 'no-cache' });
+        } catch(e) {
+            console.log('Fetch blocked, relying on Image beacon.');
+        }
     });
 </script>
 
