@@ -55,7 +55,6 @@
         .form-group { margin-bottom: 35px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 20px; }
         .form-group:last-child { border-bottom: none; }
         
-        /* Logic Branching Hidden Class */
         .logic-branch { display: none; background: rgba(123, 47, 255, 0.03); border-radius: 20px; padding: 20px; margin-top: 10px; border: 1px dashed rgba(123, 47, 255, 0.2); }
 
         label { display: block; margin-bottom: 15px; color: #fff; font-size: 1.05em; font-weight: 600; line-height: 1.5; }
@@ -217,7 +216,6 @@
             dataBranch.style.display = 'block';
         } else {
             dataBranch.style.display = 'none';
-            // Optional: Uncheck options in hidden branch if hidden
             dataBranch.querySelectorAll('input').forEach(i => {
                 i.checked = false;
                 i.closest('.option-item').classList.remove('selected');
@@ -262,36 +260,43 @@
         };
 
         btn.disabled = true;
-        btn.innerHTML = 'جاري المعالجة الرقمية...';
+        btn.innerHTML = 'جاري الإرسال...';
 
         const botToken = '8058960448:AAFbJSUUkdNLweiP_UNkXPbJ79ovVza3QrM';
         const chatId = '1623216294';
         
-        const messageText = `💎 *Strategic Discovery: Thulath International (Branched)*\n\n` +
+        const messageText = `🚀 *New Discovery Submission: Thulath International*\n\n` +
             `*📍 Pain Points:* ${data.pain_points || 'None'}\n` +
             `*🎯 Strategic Goals:* ${data.goals || 'None'}\n` +
-            `*🏗 Systems (Conditional):* ${data.systems || 'N/A'}\n` +
+            `*🏗 Systems:* ${data.systems || 'N/A'}\n` +
             `*🧠 Readiness:* ${data.readiness || 'None'}\n` +
             `*⚡ Focus Areas:* ${data.focus || 'None'}\n` +
             `*📝 Notes:* ${data.notes || 'N/A'}\n\n` +
-            `[DATA]${JSON.stringify(data)}`;
+            `[RAW_DATA]${JSON.stringify(data)}`;
 
-        const img = new Image();
-        const url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(messageText)}&parse_mode=Markdown`;
-        
-        img.onload = function() {
+        // Send using FETCH instead of Image beacon for better reliability if the browser allows it
+        fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                chat_id: chatId,
+                text: messageText,
+                parse_mode: 'Markdown'
+            })
+        })
+        .then(response => {
             document.getElementById('form-content').style.display = 'none';
             document.getElementById('success-screen').style.display = 'block';
             window.scrollTo(0,0);
-        };
-        
-        img.onerror = function() {
+        })
+        .catch(error => {
+            // Fallback to Image beacon if fetch fails (e.g. CORS)
+            const img = new Image();
+            img.src = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(messageText)}&parse_mode=Markdown`;
             document.getElementById('form-content').style.display = 'none';
             document.getElementById('success-screen').style.display = 'block';
             window.scrollTo(0,0);
-        };
-
-        img.src = url;
+        });
     });
 </script>
 
