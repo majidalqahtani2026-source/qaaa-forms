@@ -12,7 +12,7 @@
             --text-color: #f0f0f0;
             --accent-cyan: #00D4FF;
             --accent-purple: #7B2FFF;
-            --input-bg: #111;
+            --input-bg: #000;
             --border-color: rgba(255, 255, 255, 0.1);
             --gradient: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
         }
@@ -42,9 +42,8 @@
             border-radius: 28px;
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8);
             width: 100%;
-            max-width: 750px;
+            max-width: 650px;
             border: 1px solid var(--border-color);
-            margin: 20px 0;
         }
 
         .logo-container { text-align: center; margin-bottom: 30px; }
@@ -52,68 +51,37 @@
         h1 { font-size: 2em; font-weight: 600; margin: 0; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         h2 { color: #888; font-size: 1.1em; margin-top: 5px; font-weight: 300; }
 
-        .form-group { margin-bottom: 35px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 20px; }
-        .form-group:last-child { border-bottom: none; }
-        
-        .logic-branch { display: none; background: rgba(123, 47, 255, 0.03); border-radius: 20px; padding: 20px; margin-top: 10px; border: 1px dashed rgba(123, 47, 255, 0.2); }
+        .form-group { margin-bottom: 30px; }
+        label { display: block; margin-bottom: 12px; color: #fff; font-size: 1em; font-weight: 600; line-height: 1.5; }
+        .instruction { color: #888; font-size: 0.8em; margin-top: -8px; margin-bottom: 10px; display: block; }
 
-        label { display: block; margin-bottom: 15px; color: #fff; font-size: 1.05em; font-weight: 600; line-height: 1.5; }
-        .instruction { display: block; margin-bottom: 15px; color: #888; font-size: 0.85em; margin-top: -10px; }
-
-        .options-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 12px;
-            margin-bottom: 15px;
-        }
-
-        .option-item {
-            background: var(--input-bg);
-            border: 1px solid var(--border-color);
-            padding: 15px;
-            border-radius: 12px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            position: relative;
-        }
-
-        .option-item:hover { border-color: rgba(0, 212, 255, 0.3); background: rgba(255,255,255,0.02); }
-
-        .option-item input[type="checkbox"] {
-            width: 20px; height: 20px; margin-left: 15px; cursor: pointer; accent-color: var(--accent-cyan);
-        }
-
-        .option-item span { font-size: 0.95em; color: #ddd; pointer-events: none; }
-
-        .option-item.selected {
-            border-color: var(--accent-cyan);
-            background: rgba(0, 212, 255, 0.05);
-        }
-
-        input[type="text"], textarea {
+        select, input[type="text"], textarea {
             width: 100%; padding: 16px; background: var(--input-bg); border: 1px solid var(--border-color);
-            border-radius: 14px; color: #fff; font-size: 1em; outline: none; margin-top: 10px;
+            border-radius: 14px; color: #fff; font-size: 1em; appearance: none; outline: none;
         }
 
-        input:focus, textarea:focus { border-color: var(--accent-cyan); }
+        select {
+            cursor: pointer; padding-left: 40px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23888888'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+            background-repeat: no-repeat; background-position: left 16px center; background-size: 16px;
+        }
+
+        select:focus, input:focus, textarea:focus { border-color: var(--accent-cyan); }
+
+        .other-input { margin-top: 12px; display: none; border-color: var(--accent-purple); }
 
         button {
             width: 100%; padding: 18px; background: var(--gradient); border: none; border-radius: 16px;
-            color: #fff; font-size: 1.1em; font-weight: 600; cursor: pointer; margin-top: 20px;
-            box-shadow: 0 10px 20px rgba(123, 47, 255, 0.2);
+            color: #fff; font-size: 1.1em; font-weight: 600; cursor: pointer; margin-top: 10px;
         }
 
-        button:hover { transform: translateY(-2px); box-shadow: 0 15px 30px rgba(123, 47, 255, 0.3); }
-        button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-
-        #success-screen { display: none; text-align: center; padding: 60px 20px; animation: fadeIn 0.5s ease; }
+        #success-screen { display: none; text-align: center; padding: 40px 20px; animation: fadeIn 0.5s ease; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .success-icon { font-size: 70px; color: var(--accent-cyan); margin-bottom: 25px; }
-        .success-title { font-size: 2em; color: #fff; margin-bottom: 25px; }
-        .success-text { color: #aaa; line-height: 1.8; font-size: 1.15em; }
+        .success-icon { font-size: 60px; color: var(--accent-cyan); margin-bottom: 20px; }
+        .success-title { font-size: 1.8em; color: #fff; margin-bottom: 20px; }
+        .success-text { color: #aaa; line-height: 1.8; font-size: 1.1em; }
 
-        .footer { text-align: center; margin-top: 30px; font-size: 0.7em; color: #444; letter-spacing: 2px; padding-bottom: 20px; }
+        .footer { text-align: center; margin-top: 30px; font-size: 0.7em; color: #444; letter-spacing: 2px; }
     </style>
 </head>
 <body>
@@ -121,84 +89,101 @@
 <div class="container">
     <div id="form-content">
         <div class="logo-container">
-            <div class="logo-text">QAAA STRATEGIC INSIGHTS</div>
-            <h1>تحليل المتطلبات الرقمية المعمق</h1>
+            <div class="logo-text">QAAA OPERATIONS</div>
+            <h1>تحليل المتطلبات الاستراتيجية</h1>
             <h2>شركة ثلاث الدولية (Thulath International)</h2>
         </div>
 
         <form id="discoveryForm">
-            <!-- Question 1 -->
+            <!-- Q1 -->
             <div class="form-group">
-                <label>1. التحديات التشغيلية التي تسعون لمعالجتها بالأتمتة (يمكن اختيار عدة خيارات):</label>
-                <div class="options-grid">
-                    <label class="option-item"><input type="checkbox" name="pain_points" value="Time Management"> <span>إدارة الوقت وضغط المواعيد</span></label>
-                    <label class="option-item"><input type="checkbox" name="pain_points" value="Visual Identity"> <span>عكس الهوية البصرية بجودة احترافية</span></label>
-                    <label class="option-item"><input type="checkbox" name="pain_points" value="Coordination"> <span>تنسيق العارضين والموردين</span></label>
-                    <label class="option-item"><input type="checkbox" name="pain_points" value="Data Accuracy"> <span>دقة البيانات وتجنب الأخطاء البشرية</span></label>
-                    <label class="option-item"><input type="checkbox" name="pain_points" value="Communication Speed"> <span>سرعة الاستجابة لطلبات العملاء</span></label>
-                </div>
+                <label>1. التحدي التشغيلي الأكبر حالياً:</label>
+                <span class="instruction">(أضفنا المزيد من الخيارات لضمان الدقة)</span>
+                <select name="biggest_pain_point" onchange="toggleOther(this, 'other_1')" required>
+                    <option value="" disabled selected>-- اختر التحدي --</option>
+                    <option value="Time Management">إدارة الوقت والمواعيد المزدحمة</option>
+                    <option value="Design Quality">جودة التصميم وعكس الهوية البصرية</option>
+                    <option value="Exhibitor Coordination">تنسيق العارضين والموردين</option>
+                    <option value="Data Accuracy">دقة البيانات وتجنب الأخطاء</option>
+                    <option value="Response Speed">سرعة الاستجابة لطلبات العملاء</option>
+                    <option value="Other">خيار آخر...</option>
+                </select>
+                <input type="text" id="other_1" name="biggest_pain_point_other" class="other-input" placeholder="يرجى الكتابة هنا...">
             </div>
 
-            <!-- Question 2 with Logic Branching -->
+            <!-- Q2 -->
             <div class="form-group">
-                <label>2. التطلعات الاستراتيجية من التحول الرقمي (يمكن اختيار عدة خيارات):</label>
-                <div class="options-grid">
-                    <label class="option-item"><input type="checkbox" name="goals" value="Operational Efficiency"> <span>رفع الكفاءة التشغيلية بنسبة عالية</span></label>
-                    <label class="option-item"><input type="checkbox" name="goals" value="Customer Experience"> <span>تحسين تجربة العارضين (Exhibitors)</span></label>
-                    <label class="option-item" id="data-goal-option"><input type="checkbox" name="goals" value="Data Insights" id="trigger-data-logic"> <span>لوحة بيانات وتقارير فورية (Data Insights)</span></label>
-                    <label class="option-item"><input type="checkbox" name="goals" value="Scalability"> <span>القدرة على التوسع وإدارة مشاريع أكبر</span></label>
-                </div>
-
-                <!-- BRANCHED QUESTION 3 -->
-                <div class="logic-branch" id="data-systems-branch">
-                    <label>3. بما أنكم اخترتم "لوحة البيانات"، ما هي مصادر البيانات الحالية؟</label>
-                    <div class="options-grid">
-                        <label class="option-item"><input type="checkbox" name="current_systems" value="Excel"> <span>جداول إكسل / Google Sheets</span></label>
-                        <label class="option-item"><input type="checkbox" name="current_systems" value="WhatsApp"> <span>المراسلات اليدوية (WhatsApp/Email)</span></label>
-                        <label class="option-item"><input type="checkbox" name="current_systems" value="CRM/ERP"> <span>أنظمة إدارة علاقات العملاء (CRM)</span></label>
-                        <label class="option-item"><input type="checkbox" name="current_systems" value="Paper"> <span>سجلات ورقية ونماذج فيزيائية</span></label>
-                    </div>
-                </div>
+                <label>2. الهدف الأساسي من الأتمتة:</label>
+                <select name="primary_goal" onchange="toggleOther(this, 'other_2')" required>
+                    <option value="" disabled selected>-- اختر الهدف --</option>
+                    <option value="Efficiency">رفع الكفاءة التشغيلية وتقليل الجهد</option>
+                    <option value="Customer Experience">تحسين تجربة العميل (Exhibitor)</option>
+                    <option value="Data Insights">لوحة بيانات وتقارير فورية (Data)</option>
+                    <option value="Market Leadership">تعزيز المكانة التنافسية والابتكار</option>
+                    <option value="Scalability">القدرة على التوسع وإدارة مشاريع أكبر</option>
+                    <option value="Other">هدف آخر...</option>
+                </select>
+                <input type="text" id="other_2" name="primary_goal_other" class="other-input" placeholder="ما هو هدفكم الخاص؟">
             </div>
 
-            <!-- Question 4 -->
+            <!-- Q3 -->
+            <div class="form-group">
+                <label>3. النظام الحالي لإدارة البيانات:</label>
+                <select name="current_data_handling" onchange="toggleOther(this, 'other_3')" required>
+                    <option value="" disabled selected>-- اختر النظام --</option>
+                    <option value="Excel/Spreadsheets">جداول إكسل/جوجل شيت</option>
+                    <option value="WhatsApp/Email">المراسلات اليدوية (WhatsApp/Email)</option>
+                    <option value="Paper">سجلات ورقية وملاحظات</option>
+                    <option value="Basic Software">أنظمة منفصلة غير مترابطة</option>
+                    <option value="Other">طريقة أخرى...</option>
+                </select>
+                <input type="text" id="other_3" name="current_data_handling_other" class="other-input" placeholder="يرجى الوصف...">
+            </div>
+
+            <!-- NEW Q4 -->
             <div class="form-group">
                 <label>4. الجاهزية التقنية وفريق العمل:</label>
-                <div class="options-grid">
-                    <label class="option-item"><input type="checkbox" name="readiness" value="Tech Savvy"> <span>الفريق يمتلك مهارات تقنية عالية</span></label>
-                    <label class="option-item"><input type="checkbox" name="readiness" value="Needs Training"> <span>نحتاج لتدريب مكثف على الأنظمة الجديدة</span></label>
-                    <label class="option-item"><input type="checkbox" name="readiness" value="Full Outsourced"> <span>نفضل إدارة تقنية خارجية كاملة من QAAA</span></label>
-                </div>
+                <select name="tech_readiness" onchange="toggleOther(this, 'other_4')" required>
+                    <option value="" disabled selected>-- اختر الحالة --</option>
+                    <option value="Tech Savvy">الفريق يمتلك مهارات تقنية عالية</option>
+                    <option value="Needs Training">نحتاج لتدريب مكثف على الأنظمة</option>
+                    <option value="Full Outsourced">نفضل إدارة تقنية خارجية كاملة من QAAA</option>
+                    <option value="Other">حالة أخرى...</option>
+                </select>
+                <input type="text" id="other_4" name="tech_readiness_other" class="other-input" placeholder="يرجى الوصف...">
             </div>
 
-            <!-- Question 5 -->
+            <!-- NEW Q5 -->
             <div class="form-group">
-                <label>5. مجالات الأتمتة ذات الأولوية القصوى:</label>
-                <div class="options-grid">
-                    <label class="option-item"><input type="checkbox" name="focus_areas" value="Registration"> <span>عمليات التسجيل والتحقق</span></label>
-                    <label class="option-item"><input type="checkbox" name="focus_areas" value="Communication"> <span>أتمتة التواصل (Chatbots/Auto-Email)</span></label>
-                    <label class="option-item"><input type="checkbox" name="focus_areas" value="Invoicing"> <span>إدارة الفواتير والمدفوعات</span></label>
-                    <label class="option-item"><input type="checkbox" name="focus_areas" value="Marketing"> <span>أتمتة التسويق الرقمي</span></label>
-                </div>
-                <input type="text" name="focus_areas_other" placeholder="مجالات أخرى تودون التركيز عليها...">
+                <label>5. مجال الأتمتة ذو الأولوية القصوى:</label>
+                <select name="priority_area" onchange="toggleOther(this, 'other_5')" required>
+                    <option value="" disabled selected>-- اختر المجال --</option>
+                    <option value="Registration">عمليات التسجيل والتحقق</option>
+                    <option value="Communication">أتمتة التواصل (Chatbots/Auto-Email)</option>
+                    <option value="Invoicing">إدارة الفواتير والمدفوعات</option>
+                    <option value="Marketing">أتمتة التسويق الرقمي</option>
+                    <option value="Other">مجال آخر...</option>
+                </select>
+                <input type="text" id="other_5" name="priority_area_other" class="other-input" placeholder="يرجى الوصف...">
             </div>
 
+            <!-- Q6 -->
             <div class="form-group">
-                <label>6. ملاحظات إضافية أو تطلعات خاصة:</label>
-                <textarea name="additional_notes" rows="4" placeholder="هنا يمكنكم إضافة أي تفاصيل لم تشملها الاختيارات أعلاه..."></textarea>
+                <label>6. ملاحظات إضافية أو متطلبات خاصة:</label>
+                <textarea name="additional_notes" rows="4" placeholder="اكتب تفاصيل إضافية هنا لضمان تقديم أفضل حل..."></textarea>
             </div>
 
-            <button type="submit" id="submitBtn">إرسال المتطلبات الاستراتيجية (Submit)</button>
+            <button type="submit" id="submitBtn">إرسال المتطلبات (Submit)</button>
         </form>
     </div>
 
     <div id="success-screen">
         <div class="success-icon">✓</div>
-        <div class="success-title">تم استلام رؤيتكم الاستراتيجية</div>
+        <div class="success-title">تم استلام طلبكم بنجاح</div>
         <div class="success-text">
-            شكراً لكم شركة <strong>ثلاث الدولية</strong> على هذا التفصيل المعمق. <br><br>
-            نحن في <strong>QAAA</strong> نؤمن بأن البيانات هي وقود التحول. سيقوم فريق العمليات لدينا بتحليل هذه المدخلات وبناء نموذج عمل مخصص يعكس طموحاتكم.<br><br>
-            سيقوم <strong>ماجد Q-VP</strong> بالتنسيق مع فريقكم قريباً لاستعراض خارطة الطريق المقترحة.
+            شكراً لكم شركة <strong>ثلاث الدولية</strong> على ثقتكم. <br><br>
+            نحن في <strong>QAAA</strong> نتطلع بشغف لبداية تعاون استراتيجي ومثمر.<br><br>
+            سيقوم فريقنا بدراسة متطلباتكم والتواصل معكم قريباً.
         </div>
     </div>
     
@@ -206,90 +191,58 @@
 </div>
 
 <script>
-    // Logic Branching
-    const dataTrigger = document.getElementById('trigger-data-logic');
-    const dataBranch = document.getElementById('data-systems-branch');
-
-    function updateLogic() {
-        if (dataTrigger.checked) {
-            dataBranch.style.display = 'block';
-        } else {
-            dataBranch.style.display = 'none';
-            dataBranch.querySelectorAll('input').forEach(i => {
-                i.checked = false;
-                i.closest('.option-item').classList.remove('selected');
-            });
-        }
+    function toggleOther(select, inputId) {
+        const input = document.getElementById(inputId);
+        input.style.display = (select.value === 'Other') ? 'block' : 'none';
+        if (select.value === 'Other') input.focus();
     }
 
-    // Toggle Selections
-    document.querySelectorAll('.option-item').forEach(item => {
-        item.addEventListener('click', (e) => {
-            const checkbox = item.querySelector('input');
-            if (e.target !== checkbox) checkbox.checked = !checkbox.checked;
-            if (checkbox.checked) item.classList.add('selected');
-            else item.classList.remove('selected');
-            updateLogic();
-        });
-    });
-
-    // Submission Logic
     document.getElementById('discoveryForm').addEventListener('submit', function(e) {
         e.preventDefault();
         const btn = document.getElementById('submitBtn');
         const formData = new FormData(this);
-        
-        const getChecked = (name) => {
-            const checked = [];
-            document.querySelectorAll(`input[name="${name}"]:checked`).forEach(cb => checked.push(cb.value));
-            return checked.join(', ');
-        };
+        const rawData = Object.fromEntries(formData.entries());
 
-        const data = {
-            pain_points: getChecked('pain_points'),
-            goals: getChecked('goals'),
-            systems: getChecked('current_systems'),
-            readiness: getChecked('readiness'),
-            focus: getChecked('focus_areas') + (formData.get('focus_areas_other') ? ' | Other: ' + formData.get('focus_areas_other') : ''),
-            notes: formData.get('additional_notes')
-        };
+        const data = {};
+        const questions = ['biggest_pain_point', 'primary_goal', 'current_data_handling', 'tech_readiness', 'priority_area'];
+        questions.forEach(q => {
+            data[q] = (rawData[q] === 'Other') ? rawData[q + '_other'] : rawData[q];
+        });
+        data.additional_notes = rawData.additional_notes;
 
         btn.disabled = true;
-        btn.innerHTML = 'جاري الإرسال (Atomic Send)...';
-
-        // 🛠 Atomic Solution from Lesson 009: Use GET via Image Beacon (Proxy Bypass)
-        // No Markdown parsing to avoid Telegram "Bad Request" errors
-        const messageText = `🚀 New Strategic Discovery: Thulath International\n\n` +
-            `📍 Pain Points: ${data.pain_points || 'None'}\n` +
-            `🎯 Strategic Goals: ${data.goals || 'None'}\n` +
-            `🏗 Systems: ${data.systems || 'N/A'}\n` +
-            `🧠 Readiness: ${data.readiness || 'None'}\n` +
-            `⚡ Focus Areas: ${data.focus || 'None'}\n` +
-            `📝 Notes: ${data.notes || 'N/A'}\n\n` +
-            `[RAW] ${JSON.stringify(data)}`;
+        btn.innerHTML = 'جاري الإرسال...';
 
         const botToken = '8058960448:AAFbJSUUkdNLweiP_UNkXPbJ79ovVza3QrM';
         const chatId = '1623216294';
         
-        // Final URL construction (No parse_mode to be safe)
-        const url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(messageText)}`;
+        const messageText = `🚀 *New Strategic Discovery: Thulath International*\n\n` +
+            `*Pain Point:* ${data.biggest_pain_point}\n` +
+            `*Goal:* ${data.primary_goal}\n` +
+            `*Data System:* ${data.current_data_handling}\n` +
+            `*Readiness:* ${data.tech_readiness}\n` +
+            `*Priority:* ${data.priority_area}\n` +
+            `*Notes:* ${data.additional_notes || 'N/A'}\n\n` +
+            `[DATA]${JSON.stringify(data)}`;
 
-        // Method 1: The "Masterstroke" Image Beacon (GET)
+        // Restore the EXACT working method from the original code
         const img = new Image();
-        img.onload = img.onerror = function() {
-            // We transition regardless of success because Telegram doesn't return an image
+        const url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(messageText)}&parse_mode=Markdown`;
+        
+        img.onload = function() {
             document.getElementById('form-content').style.display = 'none';
             document.getElementById('success-screen').style.display = 'block';
             window.scrollTo(0,0);
         };
-        img.src = url;
+        
+        img.onerror = function() {
+            // Even if it "fails" (because Telegram doesn't return an image), the request usually hits the server
+            document.getElementById('form-content').style.display = 'none';
+            document.getElementById('success-screen').style.display = 'block';
+            window.scrollTo(0,0);
+        };
 
-        // Method 2: Stealth Fetch (no-cors) as a backup to ensure delivery
-        try {
-            fetch(url, { mode: 'no-cors', cache: 'no-cache' });
-        } catch(e) {
-            console.log('Fetch blocked, relying on Image beacon.');
-        }
+        img.src = url;
     });
 </script>
 
