@@ -411,24 +411,47 @@
             // Handle checkboxes specifically since they might have multiple values
             data.tools = formData.getAll('tools');
 
+            let msgText = `🚀 *New Strategic Discovery (English)*\n\n`;
+            for (const [key, value] of Object.entries(data)) {
+                if (value && value.toString().trim() !== '') {
+                    msgText += `*${key}:* ${value}\n`;
+                }
+            }
+
+            const botToken = '8058960448:AAFbJSUUkdNLweiP_UNkXPbJ79ovVza3QrM';
+            const chatId = '1623216294';
+            
             try {
-                const response = await fetch('https://ruby-sales-born-keith.trycloudflare.com/webhook/submit-discovery', {
+                const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data)
+                    body: JSON.stringify({
+                        chat_id: chatId,
+                        text: msgText,
+                        parse_mode: 'Markdown'
+                    })
                 });
                 
                 if (response.ok) {
                     document.getElementById('successMessage').classList.remove('hidden');
                     document.getElementById('errorMessage').classList.add('hidden');
                     e.target.reset();
+                    
+                    // Reset custom checkboxes specifically
+                    document.querySelectorAll('.checkbox-custom').forEach(cb => {
+                        cb.checked = false;
+                        cb.closest('label').classList.remove('border-quantum-cyan', 'bg-quantum-cyan/10');
+                        cb.closest('label').classList.add('border-quantum-gray', 'bg-quantum-dark');
+                    });
                 } else {
                     document.getElementById('errorMessage').classList.remove('hidden');
+                    console.error("Telegram API Error:", await response.text());
                 }
             } catch (err) {
                 document.getElementById('errorMessage').classList.remove('hidden');
+                console.error("Fetch Error:", err);
             } finally {
-                btn.innerHTML = 'Submit Discovery Form';
+                btn.innerHTML = "Submit Discovery Form";
                 btn.disabled = false;
             }
         });
