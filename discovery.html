@@ -136,23 +136,27 @@
                         <textarea name="businessActivity" rows="2" class="quantum-input w-full rounded-lg px-4 py-3"></textarea>
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-slate-300 mb-2">Monthly Volume (Clients/Projects)</label>
+                        <label class="block text-sm font-medium text-slate-300 mb-2">Monthly Operations Volume (Clients / Projects / Requests)</label>
+                        
                         <select name="monthlyVolume" class="quantum-input w-full rounded-lg px-4 py-3 appearance-none">
                             <option value="">Select volume...</option>
-                            <option value="Under 10">Under 10</option>
-                            <option value="10 - 50">10 - 50</option>
-                            <option value="50 - 200">50 - 200</option>
-                            <option value="200+">200+</option>
+                            <option value="Under 10">Under 10 (Enterprise / Consulting Projects)</option>
+                            <option value="10 - 100">10 - 100</option>
+                            <option value="100 - 500">100 - 500</option>
+                            <option value="500 - 2,000">500 - 2,000</option>
+                            <option value="2,000+">2,000+ (High Volume / Retail)</option>
                         </select>
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-slate-300 mb-2">Average Transaction Size (SAR)</label>
+                        <label class="block text-sm font-medium text-slate-300 mb-2">Average Project / Transaction Size (SAR)</label>
+                        
                         <select name="transactionSize" class="quantum-input w-full rounded-lg px-4 py-3 appearance-none">
                             <option value="">Select range...</option>
-                            <option value="Under 1,000">Under 1,000 SAR</option>
-                            <option value="1,000 - 5,000">1,000 - 5,000 SAR</option>
-                            <option value="5,000 - 20,000">5,000 - 20,000 SAR</option>
-                            <option value="20,000+">20,000+ SAR</option>
+                            <option value="Under 5,000 SAR">Under 5,000 SAR</option>
+                            <option value="5,000 - 20,000 SAR">5,000 - 20,000 SAR</option>
+                            <option value="20,000 - 100,000 SAR">20,000 - 100,000 SAR</option>
+                            <option value="100,000 - 500,000 SAR">100,000 - 500,000 SAR</option>
+                            <option value="500,000+ SAR">500,000+ SAR (Enterprise Projects)</option>
                         </select>
                     </div>
                 </div>
